@@ -2,5 +2,163 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "aa-search-lib": {
+      "projectType": "library",
+      "root": "projects/aa-search-lib",
+      "sourceRoot": "projects/aa-search-lib/src",
+      "prefix": "aa",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/aa-search-lib/tsconfig.lib.json",
+            "project": "projects/aa-search-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/aa-search-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/aa-search-lib/src/test.ts",
+            "tsConfig": "projects/aa-search-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/aa-search-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/aa-search-lib/tsconfig.lib.json",
+              "projects/aa-search-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "aa-search-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/aa-search-app",
+      "sourceRoot": "projects/aa-search-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/aa-search-app",
+            "index": "projects/aa-search-app/src/index.html",
+            "main": "projects/aa-search-app/src/main.ts",
+            "polyfills": "projects/aa-search-app/src/polyfills.ts",
+            "tsConfig": "projects/aa-search-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/aa-search-app/src/favicon.ico",
+              "projects/aa-search-app/src/assets"
+            ],
+            "styles": [
+              "projects/aa-search-app/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/aa-search-app/src/environments/environment.ts",
+                  "with": "projects/aa-search-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "aa-search-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "aa-search-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "aa-search-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/aa-search-app/src/test.ts",
+            "polyfills": "projects/aa-search-app/src/polyfills.ts",
+            "tsConfig": "projects/aa-search-app/tsconfig.spec.json",
+            "karmaConfig": "projects/aa-search-app/karma.conf.js",
+            "assets": [
+              "projects/aa-search-app/src/favicon.ico",
+              "projects/aa-search-app/src/assets"
+            ],
+            "styles": [
+              "projects/aa-search-app/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/aa-search-app/tsconfig.app.json",
+              "projects/aa-search-app/tsconfig.spec.json",
+              "projects/aa-search-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/aa-search-app/e2e/protractor.conf.js",
+            "devServerTarget": "aa-search-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "aa-search-app:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "aa-search-lib"
 }
