@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { takeWhile, tap } from 'rxjs/operators';
+import { takeWhile } from 'rxjs/operators';
 
 import { SearchService } from '../../services/search.service';
 import { IOMDBMovie } from '../../models/movie.model';
@@ -15,9 +15,9 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   responseMessage: string;
   errorMessages = new Map([
     ['required', 'Please enter a search term'],
-    ['pattern', 'Please enter only character and spaces'],
+    ['pattern', 'Please enter only characters and spaces'],
     ['minlength', 'Please enter more than 2 characters'],
-    ['maxlength', 'Please enter less than 2 characters'],
+    ['maxlength', 'Please enter less than 10 characters'],
   ]);
   isAlive = true;
 
@@ -34,7 +34,6 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
       .getSearchResults(searchTerm)
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((r) => {
-        console.log(r.Response);
         r.Response === 'True'
           ? (this.searchResults = r.Search)
           : (this.responseMessage = r.Error);
