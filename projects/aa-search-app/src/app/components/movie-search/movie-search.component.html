@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row justify-content-center pb-1">
+    <div class="col-sm-12 col-md-8">
+      <aa-search-lib
+        [errorMessages]="errorMessages"
+        (search)="onSearch($event)"
+      ></aa-search-lib>
+    </div>
+  </div>
+
+  <table *ngIf="searchResults && searchResults.length" class="table">
+    <thead>
+      <tr>
+        <td>Title</td>
+        <td>Year</td>
+        <td>Type</td>
+        <td>Poster</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let movie of searchResults">
+        <td>{{ movie.Title }}</td>
+        <td>{{ movie.Year }}</td>
+        <td>{{ movie.Type }}</td>
+        <td>
+          <img
+            [src]="movie.Poster"
+            alt="{{ movie.Title }} movie poster"
+            height="200"
+            width="150"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!searchResults && responseMessage">
+    {{ responseMessage }}
+  </div>
+</div>

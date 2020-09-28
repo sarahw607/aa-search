@@ -36,9 +36,7 @@
               "projects/aa-search-lib/tsconfig.lib.json",
               "projects/aa-search-lib/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -63,9 +61,7 @@
               "projects/aa-search-app/src/favicon.ico",
               "projects/aa-search-app/src/assets"
             ],
-            "styles": [
-              "projects/aa-search-app/src/styles.css"
-            ],
+            "styles": ["projects/aa-search-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -127,9 +123,7 @@
               "projects/aa-search-app/src/favicon.ico",
               "projects/aa-search-app/src/assets"
             ],
-            "styles": [
-              "projects/aa-search-app/src/styles.css"
-            ],
+            "styles": ["projects/aa-search-app/src/styles.scss"],
             "scripts": []
           }
         },
@@ -141,9 +135,7 @@
               "projects/aa-search-app/tsconfig.spec.json",
               "projects/aa-search-app/e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -159,6 +151,12 @@
           }
         }
       }
-    }},
-  "defaultProject": "aa-search-lib"
+    }
+  },
+  "defaultProject": "aa-search-lib",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
